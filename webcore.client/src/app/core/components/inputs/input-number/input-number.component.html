@@ -1,0 +1,13 @@
+<input 
+  type="text" 
+  [placeholder]="placeholder" 
+  appThousandSeparator 
+  [formControl]="numberCtrl"
+  [allowDecimal]="allowDecimal" 
+  [maxDecimals]="maxDecimals"
+  [readonly]="disabled"
+  (numericValueChange)="onNumericValueChange($event)"
+  (blur)="onInputBlur()"
+  class="input-number" 
+  autocomplete="off"
+  aria-label="Number input" />

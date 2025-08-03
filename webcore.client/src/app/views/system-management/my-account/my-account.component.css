@@ -1,0 +1,9 @@
+.eyeIcon {
+  position: absolute;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  right: 5px;
+  top: 0;
+  cursor: pointer;
+}/*# sourceMappingURL=my-account.component.css.map */

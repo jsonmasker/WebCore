@@ -1,0 +1,134 @@
+<h1 i18n="@@slideThemeList">Generate QR Code</h1>
+<c-card class="mb-4">
+    <c-card-body>
+        <h5>Generate A QR Code</h5>
+        <div class="row">
+            <div class="col-8">
+                <form cForm [formGroup]="generateAQrCodeForm" (ngSubmit)="onSubmitGenerateQrCode()">
+                    <div class="mb-2">
+                        <label cLabel for="content">Content: <span class="text-danger">(*)</span></label>
+                        <input cFormControl formControlName="content" type="text" />
+                        <div *ngIf="content?.invalid && (content?.dirty || content?.touched)" class="text-danger">
+                            <div *ngIf="content?.hasError('required')">
+                                Enter content, please!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12 col-sm-6">
+                            <label cLabel for="text">Text:</label>
+                            <input cFormControl formControlName="text" type="text" />
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <label cLabel for="fontFamily">Select Font Family</label>
+                            <select cFormControl formControlName="fontFamily" id="fontFamily" cSelect>
+                                <option value="arial.ttf">Arial</option>
+                                <option value="arialbd.ttf">Arial Bold</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <label cLabel for="fontSize">Font Size</label>
+                            <input cFormControl formControlName="fontSize" type="number" [min]="10" [max]="100" />
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <label cLabel for="logo">Logo: </label>
+                            <input cFormControl type="file" (change)="onFileChange($event)" accept="image/*" />
+                        </div>
+                        <div class="col-3">
+                            <label cLabel for="size">Size: <span class="text-danger">(*)</span></label>
+                            <input cFormControl formControlName="size" type="number" />
+                            <div *ngIf="size?.invalid && (size?.dirty || size?.touched)" class="text-danger">
+                                <div *ngIf="size?.hasError('min')">
+                                    Minimum is 20 and Maximum is 500
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <label cLabel for="border">Border: <span class="text-danger">(*)</span></label>
+                            <input cFormControl formControlName="border" type="number" />
+                            <div *ngIf="border?.invalid && (border?.dirty || border?.touched)" class="text-danger">
+                                <div *ngIf="border?.hasError('min') || border?.hasError('max')">
+                                    Minimum is 0 and Maximum is 100
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <div class="col-3">
+                            <label cLabel for="textColor">Text Color:</label>
+                            <input cFormControl formControlName="textColor" type="color" />
+                        </div>
+                        <div class="col-3">
+                            <label cLabel for="backgroundColor">Background Color:</label>
+                            <input cFormControl formControlName="backgroundColor" type="color" />
+                        </div>
+                        <div class="col-3">
+                            <label cLabel for="fillColor">Fill Color: </label>
+                            <input cFormControl formControlName="fillColor" type="color" />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button cButton type="submit" type="submit" [disabled]="!generateAQrCodeForm.valid"
+                            >Preview</button>
+                    </div>
+                </form>   
+            </div>
+            <div class="col-4">
+                <div class="qrImage" *ngIf="!qrCodeImageUrl" [innerHTML]="demoLogo"></div>
+                <div class="qrImage" *ngIf="qrCodeImageUrl">
+                    <a class="d-flex flex-column justify-content-center" href="{{qrCodeImageUrl}}" download>
+                        <img class="m-auto" [src]="qrCodeImageUrl" alt="Generated QR Code" />
+                    </a>
+                    <h6 class="text-center mt-2">Click QR Code to download!</h6>
+                </div>       
+            </div>
+        </div>
+    </c-card-body>
+  </c-card>
+  <c-card>
+    <c-card-body>
+        <h5>Generate List Code</h5>
+        <form cForm [formGroup]="generateListQRCodeForm" (ngSubmit)="onSubmitGenerateQrCodeList()">
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="prefix">Prefix:</label>
+                    <input cFormControl formControlName="prefix" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="quantity">Quantity:</label>
+                    <input cFormControl formControlName="quantity" type="number" />
+                    <div *ngIf="quantity?.invalid && (quantity?.dirty || quantity?.touched)" class="text-danger">
+                        <div *ngIf="quantity?.hasError('min')">
+                            Minimum is 1
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="codeLength">CodeLength:</label>
+                    <input cFormControl formControlName="codeLength" type="number" />
+                    <div *ngIf="codeLength?.invalid && (codeLength?.dirty || codeLength?.touched)" class="text-danger">
+                        <div *ngIf="codeLength?.hasError('min')">
+                            Minimum is 1
+                        </div>
+                        <div *ngIf="codeLength?.hasError('max')">
+                            Maximun is 100
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="randomType">CodeType:</label>
+                    <select cFormControl formControlName="randomType" id="randomType" cSelect>
+                        <option *ngFor="let item of qrCodeTypeList; index as i" [value]="i"> {{item}} </option>
+                  </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button cButton type="submit" [disabled]="!generateListQRCodeForm.valid"
+                    i18n="@@submit">Submit</button>
+            </div>
+        </form>
+    </c-card-body>
+  </c-card>
+  

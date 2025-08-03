@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-center">
+  <div class="w-75">
+    <c-carousel (itemChange)="onItemChange($event)" [dark]="false" [interval]="5000" transition="slide">
+      <c-carousel-indicators></c-carousel-indicators>
+      <c-carousel-inner>
+        @for (slide of slides[0]; track slide.src) {
+          <c-carousel-item>
+            <img
+              [src]="slide.src"
+              alt="{{slide.title}}"
+              class="d-block w-100"
+              loading="lazy"
+            />
+            <c-carousel-caption class="d-none d-md-block">
+              <h3>{{ slide.title }}</h3>
+              <p>{{ slide.subtitle }}</p>
+            </c-carousel-caption>
+          </c-carousel-item>
+        }
+      </c-carousel-inner>
+      <c-carousel-control caption="Previous" direction="prev" i18n-caption></c-carousel-control>
+      <c-carousel-control caption="Next" direction="next" i18n-caption></c-carousel-control>
+    </c-carousel>
+  </div>
+</div>
+

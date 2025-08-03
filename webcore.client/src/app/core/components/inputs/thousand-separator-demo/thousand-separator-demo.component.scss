@@ -1,0 +1,98 @@
+.demo-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .input-group {
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .thousand-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .thousand-input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    small {
+      display: block;
+      margin-top: 0.5rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .numeric-value {
+      color: #28a745 !important;
+      font-weight: 600;
+      margin-top: 0.25rem !important;
+    }
+
+    .submit-section {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .submit-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .values-display {
+      background-color: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .values-display h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .json-display {
+      background-color: #e9ecef;
+      padding: 1rem;
+      border-radius: 4px;
+      border-left: 4px solid #28a745;
+    }
+
+    .json-display pre {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #495057;
+      white-space: pre-wrap;
+    }

@@ -1,0 +1,143 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Import styles with default layout.
+@use "@coreui/coreui/scss/coreui" as * with (
+  $enable-deprecation-messages: false
+);
+
+// Import Chart.js custom tooltips styles
+@use "@coreui/chartjs/scss/coreui-chartjs";
+
+// Custom styles for this theme
+@use "theme";
+
+// Some temp fixes
+//@use "fixes";
+
+// If you want to add custom CSS you can put it here.
+@use "custom";
+
+// Examples
+// We use those styles to show code examples, you should remove them in your application.
+@use "examples";
+
+@use "login";
+
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+}
+
+//html, body { height: 100%; }
+//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.cdk-overlay-container {
+    z-index: 9999;
+}
+
+.reviewImage {
+    border: 1px solid #c1c1c1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 30%;
+
+    img {
+        max-height: 150px;
+        max-width: 30%;
+
+    }
+}
+
+.img-thumbnail {
+    width: 60px;
+    height: auto;
+}
+
+.priorityInput {
+    max-width: 80px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cui-body-color);
+    appearance: none;
+    background-color: var(--cui-body-bg);
+    background-clip: padding-box;
+    border: var(--cui-border-width) solid var(--cui-border-color);
+    border-radius: var(--cui-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.priorityInput:focus {
+    color: var(--cui-body-color);
+    background-color: var(--cui-body-bg);
+    border-color: rgb(171.5, 170.5, 234.5);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(88, 86, 214, 0.25)
+}
+
+.expanded td {
+    font-weight: bold;
+    color: #fff;
+    background-color: #323a49;
+}
+
+.tableChildren td,
+.tableChildren th,
+.tdChildren,
+.children td {
+    background-color: #d4d4d4 !important;
+}
+
+//tree select
+.ant-select {
+    width: 100%;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cui-body-color);
+    appearance: none;
+    background-color: var(--cui-body-bg);
+    background-clip: padding-box;
+    border: var(--cui-border-width) solid var(--cui-border-color);
+    border-radius: var(--cui-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    padding: 0.375rem 0.75rem;
+    height: 38px !important;
+    display: flex;
+    align-items: center;
+}
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector
+ {
+       border: var(--cui-border-width) solid var(--cui-border-color);
+}
+
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    color: var(--cui-body-color);
+    background-color: var(--cui-body-bg);
+    border-color: rgb(171.5, 170.5, 234.5);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(88, 86, 214, 0.25);
+}
+
+.ant-select-selector {
+    height: auto !important;
+    //padding: 0.375rem 0.75rem!important;
+}
+.ant-select-single.ant-select-show-arrow .ant-select-selection-search,
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    height: 38px;
+
+}
+.ant-select-selection-item.ng-star-inserted{
+    height: 100%;
+}
+.ant-select-tree.ant-select-tree-block-node .ant-select-tree-list-holder-inner{
+    max-height: 300px;
+}

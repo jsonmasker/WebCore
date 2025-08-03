@@ -1,0 +1,8 @@
+<div class="rating">
+    <span *ngFor="let star of ratingArr; let i = index"
+          [class.filled]="i < rating"
+          (click)="setRating(i + 1)">
+      ★
+    </span>
+  </div>
+  

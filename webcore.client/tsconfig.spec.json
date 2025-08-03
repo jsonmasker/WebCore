@@ -1,0 +1,33 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine",
+      "@angular/localize"
+    ],
+    "paths": {
+      "@components/*": [
+        "./src/app/core/components/*"
+      ],
+      "@models/*": [
+        "./src/app/core/models/*"
+      ],
+      "@services/*": [
+        "./src/app/core/services/*"
+      ],
+      "@common/*": [
+        "./src/app/core/common/*"
+      ],
+    }
+  },
+  "files": [
+    "src/test.ts",
+  ],
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

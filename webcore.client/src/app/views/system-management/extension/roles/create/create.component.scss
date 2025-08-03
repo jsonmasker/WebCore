@@ -1,0 +1,15 @@
+.btn-collopanse{
+    padding: 4px 6px;
+    border: 1px solid #c1c1c1;
+    background-color: #e9e2e2cc;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    span{
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+.active{
+    background-color: #fa7c7c;
+}

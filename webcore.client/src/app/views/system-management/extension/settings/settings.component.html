@@ -1,0 +1,67 @@
+<h1>Setting List</h1>
+
+<c-card class="mb-4">
+  <c-card-header i18n="@@dataTable">Data table</c-card-header>
+  <c-card-body>
+    <table [hover]="true" [responsive]="true" [striped]="true" align="middle" cTable class="mb-0">
+      <thead class="text-nowrap text-truncate">
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Name</th>
+          <th scope="col">Label</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of actionList; index as i ">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.label }}</td>
+              <td>
+                <div class="d-flex justify-content-end">
+                  <button (click)="updateData(item.id)" class="btn btn-primary me-2">Update</button>
+                </div>
+              </td>
+          </tr>
+      </tbody>
+    </table>
+  </c-card-body>
+</c-card>
+
+<!--Update Model-->
+<c-modal backdrop="static" [visible]="visibleUpdateModal" (visibleChange)="handleLiveUpdateModelChange($event)" id="verticallyCenteredUpdateModal" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Update Brand</h5>
+    <button (click)="toggleLiveUpdateModel()" cButtonClose></button>
+  </c-modal-header>
+  <form cForm [formGroup]="updateForm" (ngSubmit)="onSubmitUpdateForm()">
+    <c-modal-body>
+      <div class="mb-2 row">
+        <div class="col-6">
+          <label cLabel for="name" class="me-2">Name: <span class="text-danger">(*)</span> </label>
+          <input cFormControl formControlName="name">
+          <div *ngIf="nameUpdateForm?.invalid && (nameUpdateForm?.dirty || nameUpdateForm?.touched)" class="text-danger">
+            <div *ngIf="nameUpdateForm?.hasError('required')">
+              NameEN is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <label cLabel for="label">Label: <span class="text-danger">(*)</span></label>
+          <input cFormControl formControlName="label">
+          <div *ngIf="labelUpdateForm?.invalid && (labelUpdateForm?.dirty || labelUpdateForm?.touched)" class="text-danger">
+            <div *ngIf="labelUpdateForm?.hasError('required')">
+              Label is required.
+            </div>
+          </div>
+        </div>     
+      </div>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleLiveUpdateModel()" cButton color="secondary" i18n="@@close">
+        Close
+      </button>
+      <button cButton type="submit" [disabled]="!updateForm.valid" color="primary">Save</button>
+    </c-modal-footer>
+  </form>
+</c-modal>

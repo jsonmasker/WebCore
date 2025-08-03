@@ -1,0 +1,65 @@
+$background-color: rgba(20, 20, 25, 1);
+$snowflake-color: white;
+$snowflake-opacity: 0.8;
+$snowflake-size-min: 1px;
+$snowflake-size-max: 6px;
+
+// body,
+// html {
+//   margin: 0;
+//   padding: 0;
+//   background-color: $background-color;
+//   overflow-x: hidden;
+//   width: 100vw;
+//   height: auto;
+// }
+
+.snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+//   z-index: 99999;
+  background-color: #000;
+  pointer-events: none;
+
+  .snowflake {
+    position: absolute;
+    background-color: $snowflake-color;
+    border-radius: 50%;
+    opacity: $snowflake-opacity;
+    pointer-events: none;
+
+    // Keyframes for straight falling snowflakes
+    @keyframes fall {
+      0% {
+        opacity: 0;
+        transform: translateY(0);
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.5;
+        transform: translateY(100vh);
+      }
+    }
+
+    // Keyframes for diagonal falling snowflakes
+    @keyframes diagonal-fall {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0);
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.25;
+        transform: translate(10vw, 100vh);
+      }
+    }
+  }
+}

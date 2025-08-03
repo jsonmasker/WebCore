@@ -1,0 +1,123 @@
+<h1>Create Module</h1>
+<c-card>
+    <c-card-body>
+        <form cForm [formGroup]="createForm" (ngSubmit)="onSubmit()">
+            <div class="mb-2 d-flex flex-row">
+                <c-form-check class="me-4">
+                    <label cFormCheckLabel for="isActive">Active: </label>
+                    <input cFormCheckInput formControlName="isActive" id="isActive" type="checkbox" class="ms-2" />
+                </c-form-check>
+                <div>
+                    <label for="priority">Priority:</label>
+                    <input formControlName="priority" type="number" class="priorityInput ms-2" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="name">Name:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="name" type="text" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label cLabel>Label:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="label" type="text" />
+                </div>
+            </div>
+            <div>
+                <label cLabel for="description">Description:</label>
+                <textarea cFormControl formControlName="description" rows="3"></textarea>
+            </div>
+            <div class="d-flex justify-content-end my-3">
+                <button (click)="toggleLiveDemo()" cButton>Add Controller</button>
+            </div>
+            <c-accordion class="mb-3">
+                <c-accordion-item #item="cAccordionItem" [visible]="true">
+                    <ng-template cTemplateId="accordionHeaderTemplate">
+                        <button (click)="item.toggleItem()" [collapsed]="!item.visible" cAccordionButton>
+                            Accordion item #0
+                        </button>
+                    </ng-template>
+                    <ng-template cTemplateId="accordionBodyTemplate">
+                        <div class="accordion-body">
+                            <table cTable>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Class</th>
+                                        <th scope="col">Heading</th>
+                                        <th scope="col">Heading</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>&#64;mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>&#64;fat</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td colSpan="2">Larry the Bird</td>
+                                        <td>&#64;twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </ng-template>
+                </c-accordion-item>
+            </c-accordion>
+            <div class="d-flex justify-content-end">
+                <button cButton type="submit" type="submit" [disabled]="!createForm.valid"
+                    i18n="@@submit">Submit</button>
+                <button cButton type="button" routerLink="/modules" class="ms-2 btn-info" i18n="@@backToList">Back to
+                    list</button>
+            </div>
+        </form>
+    </c-card-body>
+</c-card>
+<c-modal id="liveDemoModal" [visible]="visible" size="xl" (visibleChange)="handleLiveDemoChange($event)">
+    <c-modal-header>
+        <h5 cModalTitle>Add controller</h5>
+        <button (click)="toggleLiveDemo()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <form cForm [formGroup]="controllerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-2">
+                <label for="priority">Priority:</label>
+                <input formControlName="priority" type="number" class="priorityInput ms-2" />
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <label cLabel>Name:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="name" type="text" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label cLabel>Label:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="name" type="text" />
+                </div>
+            </div>
+            <h5>Select Actions</h5>
+            <div class="d-flex justify-content-center">
+                <div class="me-4" *ngFor="let action of actionList; let i = index">
+                    <c-form-check class="me-4">
+                        <label cFormCheckLabel for="action{{i}}">{{ action.name }}</label>
+                        <input cFormCheckInput id="action{{i}}" type="checkbox" class="ms-2" />
+                    </c-form-check>
+                </div>
+            </div>
+        </form>
+    </c-modal-body>
+    <c-modal-footer>
+        <button (click)="toggleLiveDemo()" cButton color="secondary">
+            Close
+        </button>
+        <button cButton color="primary">Add</button>
+    </c-modal-footer>
+</c-modal>

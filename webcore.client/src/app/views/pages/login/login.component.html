@@ -1,0 +1,54 @@
+<div class="loginContainer">
+  <div class="mask"></div>
+  <app-particle-canvas [id]="'loginAnimation'"></app-particle-canvas>
+  <div class="formSubmit">
+    <form [formGroup]="loginForm" class="fromContainer" (ngSubmit)="onSubmit()">
+      <h1 class="text-center title">
+        Sign In
+      </h1>
+      <div *ngIf="errorMessage" class="text-danger mb-2">
+        {{ errorMessage }}
+      </div>
+      <span class="mb-1" i18n="@@userName">Username:</span>
+
+      <c-input-group>
+        <span cInputGroupText>
+          <svg cIcon name="cilUser"></svg>
+        </span>
+        <input formControlName="username" cFormControl placeholder="Enter username..." i18n-placeholder="@@inputUserNamePlaceholder" />
+      </c-input-group>
+      <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="text-danger">
+        <div *ngIf="username?.hasError('required')" i18n="@@userNameRequiredWarning">
+          Enter UserName, please!
+        </div>
+      </div>
+
+      <span class="mb-1 mt-2" i18n="@@password">Password:</span>
+
+      <c-input-group class="position-relative">
+        <span cInputGroupText>
+          <svg cIcon name="cilLockLocked"></svg>
+        </span>
+        <div style="z-index: 10;" (click)="ShowPassword()">
+           <app-eye-icon *ngIf="showPassword" class="eyeIcon"></app-eye-icon>
+           <app-eye-close-icon *ngIf="!showPassword" class="eyeIcon"></app-eye-close-icon>
+        </div>
+        <input formControlName="password" cFormControl id="password" placeholder="Enter password..." type="password" i18n-placeholder="@@inputPasswordPlaceholder" />
+      </c-input-group>
+      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger mb-2">
+        <div *ngIf="password?.hasError('required')" i18n="@@passwordRequiredWarning">
+          Enter Password, please!
+        </div>
+      </div>
+
+      <c-form-check class="mb-4 mt-2">
+        <input formControlName="rememberMe" cFormCheckInput id="remember" type="checkbox" class="me-2" />
+        <label cFormCheckLabel for="remember" i18n="@@rememberMyAccount">Remember my account</label>
+      </c-form-check>
+      <button cButton type="submit" class="px-4 w-100 text-uppercase btn btn-submit" [disabled]="!loginForm.valid" i18n="@@login">Login</button>
+      <div class="d-flex justify-content-end w-100">
+        <button cButton class="px-0" color="link" routerLink="/recover-password" i18n="@@forgotPassword">Forgot password?</button>
+      </div>
+    </form>
+  </div>
+</div>

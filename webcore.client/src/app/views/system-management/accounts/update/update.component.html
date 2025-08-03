@@ -1,0 +1,101 @@
+<h1 i18n="@@updateAccount">Update Account</h1>
+<c-card>
+    <c-card-body>
+        <form cForm [formGroup]="formData" (ngSubmit)="onSubmit()">
+            <input cFormControl formControlName="id" type="hidden" />
+
+            <div class="mb-2">
+                <c-form-check>
+                    <input cFormCheckInput formControlName="isActive" id="isActive" type="checkbox" class="me-2" />
+                    <label cFormCheckLabel for="isActive" i18n="@@active">Active</label>
+                </c-form-check>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="roleId" i18n="@@selectRoleHaveSpanChild">Select Role: <span class="text-danger">(*)</span></label>
+                    <select cFormControl formControlName="roleId" cSelect>
+                        <option value="-1" i18n="@@selectRole">Select Role</option>
+                        <option *ngFor="let item of roles" [value]="item.id">{{ item.name }}</option>
+                    </select>
+                    <div *ngIf="roleId?.invalid && (roleId?.dirty || roleId?.touched)" class="text-danger">
+                        <div *ngIf="roleId?.hasError('min')" i18n="@@roleRequiredWarning">
+                            Select a role, please!
+                        </div>
+                    </div>
+                    <div *ngIf="errorModel.roleId && errorModel.roleId.length" class="text-danger">
+                        <div *ngFor="let error of errorModel.roleId">{{ error }}</div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="mallId" i18n="@@selectMallLabel">Select mall:</label>
+                    <select cFormControl formControlName="mallId" cSelect>
+                        <option value="-1" i18n="@@selectMall">Select Mall</option>
+                        <!-- <option *ngFor="let slideTheme of slideThemes" [value]="slideTheme.id">{{ slideTheme.title }}
+                </option> -->
+                    </select>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="officeId" i18n="@@selectOfficeLabel">Select office:</label>
+                    <select cFormControl formControlName="officeId" cSelect>
+                        <option value="-1" i18n="@@selectOffice">Select office</option>
+                        <!-- <option *ngFor="let slideTheme of slideThemes" [value]="slideTheme.id">{{ slideTheme.title }}
+                </option> -->
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="email" i18n="@@emailHaveSpanChild">Email:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="email" type="text" readonly class="disabled" />
+                    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+                        <div *ngIf="email?.hasError('required')" i18n="@@emailRequiredWarning">
+                            Enter your email, please!
+                        </div>
+                        <div *ngIf="email?.hasError('email')" i18n="@@emailInvalidWarning">
+                            Email is invalid!
+                        </div>
+                    </div>
+                    <div *ngIf="errorModel.email && errorModel.email.length" class="text-danger">
+                        <div *ngFor="let error of errorModel.email">{{ error }}</div>
+                      </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="phoneNumber" i18n="@@phoneNumberLabel">PhoneNumber:</label>
+                    <input cFormControl formControlName="phoneNumber" type="text" maxlength="10" />
+                    <div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)" class="text-danger">
+                        <div *ngIf="phoneNumber?.hasError('phoneNumber')" class="text-danger" i18n="@@phoneNumberInvalidWarning">
+                            Phone number must be vietnamese phone number!
+                        </div>
+                    </div>
+                    <div *ngIf="errorModel.phoneNumber && errorModel.phoneNumber.length" class="text-danger">
+                        <div *ngFor="let error of errorModel.phoneNumber">{{ error }}</div>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 col-sm-6">
+                    <label cLabel for="userName" i18n="@@userNameHaveSpanChild">UserName:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="userName" type="text" readonly  class="disabled"/>
+                    <input cFormControl formControlName="password" type="hidden" readonly/>
+                    <!-- <div *ngIf="userName?.invalid && (userName?.dirty || userName?.touched)" class="text-danger">
+                        <div *ngIf="userName?.hasError('required')">
+                            Enter your username, please!
+                        </div>
+                        <div *ngIf="userName?.hasError('userName')">
+                            Username length must be between 6 and 50 characters, must not contain spaces, must be null!
+                        </div>
+                    </div>
+                    <div *ngIf="errorModel.userName && errorModel.userName.length" class="text-danger">
+                        <div *ngFor="let error of errorModel.userName">{{ error }}</div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button cButton type="submit" type="submit" [disabled]="!formData.valid" i18n="@@submit">Submit</button>
+                <button cButton type="button" routerLink="/accounts" class="ms-2 btn-info" i18n="@@backToList">Back to list</button>
+            </div>
+        </form>
+    </c-card-body>
+</c-card>

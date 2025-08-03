@@ -1,0 +1,119 @@
+<h1>Action List</h1>
+<div class="d-flex justify-content-end mb-2" *ngIf="eActionList.length > 0">
+  <button (click)="toggleLiveCreateModel()" class="btn btn-success" i18n="@@create">Create</button>
+</div>
+<app-data-table [data]="pageInformation"
+(changePageIndex)="onPageIndexChange($event)" (changePageSize)="onPageSizeChange($event)">
+<thead class="text-nowrap text-truncate">
+  <tr>
+    <th scope="col">STT</th>
+    <th scope="col">Label</th>
+    <th scope="col">Name</th>
+    <th scope="col">Priority</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of data.items; index as i ">
+        <td>{{ i+1 }}</td>
+        <td>{{ item.label }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.priority }}</td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <button (click)="updateData(item.id)" class="btn btn-primary me-2">View</button>
+          </div>
+        </td>
+    </tr>
+</tbody>
+</app-data-table>
+
+<!-- Create Modal -->
+<c-modal backdrop="static" [visible]="visibleCreateModal" (visibleChange)="handleLiveCreateModelChange($event)" id="verticallyCenteredCreateModal" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Create Brand</h5>
+    <button (click)="toggleLiveCreateModel()" cButtonClose></button>
+  </c-modal-header>
+  <form cForm [formGroup]="createForm" (ngSubmit)="onSubmitCreateForm()">
+    <c-modal-body>
+
+    <div class="mb-2">
+        <label for="priority">Priority:</label>
+        <input formControlName="priority" type="number" class="priorityInput ms-2" />
+        <div *ngIf="priorityCreateForm?.invalid && (priorityCreateForm?.dirty || priorityCreateForm?.touched)" class="text-danger">
+          <div *ngIf="priorityCreateForm?.hasError('min') || priorityCreateForm?.hasError('max')">
+            Priority must be between 1 and 100.
+          </div>
+        </div>
+    </div>
+      <div class="mb-2 row">
+        <div class="col-6">
+          <label cLabel for="label">Label: <span class="text-danger">(*)</span></label>
+          <select cFormControl formControlName="label" cSelect>
+            <option value="" disabled>Select label</option>
+            <option *ngFor="let label of eActionList" [value]="label">{{ label }}</option>
+          </select>
+          <div *ngIf="labelCreateForm?.invalid && (labelCreateForm?.dirty || labelCreateForm?.touched)" class="text-danger">
+            <div *ngIf="labelCreateForm?.hasError('required')">
+              Label is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <label cLabel for="name" class="me-2">Name: <span class="text-danger">(*)</span> </label>
+          <input cFormControl formControlName="name">
+          <div *ngIf="nameCreateForm?.invalid && (nameCreateForm?.dirty || nameCreateForm?.touched)" class="text-danger">
+            <div *ngIf="nameCreateForm?.hasError('required')">
+              NameEN is required.
+            </div>
+          </div>
+        </div>
+      </div>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleLiveCreateModel()" cButton color="secondary" i18n="@@close">
+        Close
+      </button>
+      <button cButton type="submit" [disabled]="!createForm.valid" color="primary">Save</button>
+    </c-modal-footer>
+  </form>
+</c-modal>
+<!--Update Model-->
+<c-modal backdrop="static" [visible]="visibleUpdateModal" (visibleChange)="handleLiveUpdateModelChange($event)" id="verticallyCenteredUpdateModal" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Update Brand</h5>
+    <button (click)="toggleLiveUpdateModel()" cButtonClose></button>
+  </c-modal-header>
+  <form cForm [formGroup]="updateForm" (ngSubmit)="onSubmitUpdateForm()">
+    <c-modal-body>
+      <label for="priority">Priority:</label>
+        <input formControlName="priority" type="number" class="priorityInput ms-2" />
+        <div *ngIf="priorityUpdateForm?.invalid && (priorityUpdateForm?.dirty || priorityUpdateForm?.touched)" class="text-danger">
+          <div *ngIf="priorityUpdateForm?.hasError('min') || priorityUpdateForm?.hasError('max')">
+            Priority must be between 1 and 100.
+          </div>
+        </div>
+        <div class="mb-2 row">
+        <div class="col-6">
+          <label cLabel for="label">Label: <span class="text-danger">(*)</span></label>
+          <input cFormControl formControlName="label" readonly>
+        </div>   
+        <div class="col-6">
+          <label cLabel for="name" class="me-2">Name: <span class="text-danger">(*)</span> </label>
+          <input cFormControl formControlName="name">
+          <div *ngIf="nameUpdateForm?.invalid && (nameUpdateForm?.dirty || nameUpdateForm?.touched)" class="text-danger">
+            <div *ngIf="nameUpdateForm?.hasError('required')">
+              NameEN is required.
+            </div>
+          </div>
+        </div> 
+      </div>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleLiveUpdateModel()" cButton color="secondary" i18n="@@close">
+        Close
+      </button>
+      <button cButton type="submit" [disabled]="!updateForm.valid" color="primary">Save</button>
+    </c-modal-footer>
+  </form>
+</c-modal>

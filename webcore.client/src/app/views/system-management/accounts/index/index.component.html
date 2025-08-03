@@ -1,0 +1,27 @@
+<h1 i18n="@@accountList">Account List</h1>
+<div class="d-flex justify-content-end mb-2">
+    <button routerLink="./create" class="btn btn-success" i18n="@@create">Create</button>
+</div>
+<app-data-table [data]="pageInformation"
+(changePageIndex)="onPageIndexChange($event)" (changePageSize)="onPageSizeChange($event)">
+<thead class="text-nowrap text-truncate">
+  <tr>
+    <th scope="col" i18n="@@thSTT">STT</th>
+    <th scope="col" i18n="@@thUserName">UserName</th>
+    <th scope="col" i18n="@@thEmail">Email</th>
+    <th scope="col" i18n="@@thIsActive">IsActive</th>
+    <th scope="col"></th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of data.items; index as i ">
+    <td>{{ i+1 }}</td>
+    <td>{{ item.userName }}</td>
+    <td>{{ item.email }}</td>
+    <td>{{ item.isActive }}</td>
+    <td>
+      <a routerLink="./update/{{ item.id }}" class="btn btn-primary">Edit</a>
+      <!-- <button class="btn btn-danger" (click)="delete(item.id)">Delete</button> -->
+  </tr>
+</tbody>
+</app-data-table>

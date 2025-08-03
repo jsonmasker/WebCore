@@ -1,0 +1,134 @@
+<div class="d-flex justify-content-end mb-2">
+    <button  (click)="toggleChangePassword()" class="btn btn-success" i18n="@@changePassword">Change Password</button>
+</div>
+<c-card class="mb-4">
+    <c-card-header i18n="@@dataTable">Information</c-card-header>
+    <c-card-body>
+        <form cForm [formGroup]="formData">
+            <div class="mb-3 row">
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="roleId" i18n="@@selectRoleHaveSpanChild">Select Role: <span class="text-danger">(*)</span></label>
+                    <select cFormControl formControlName="roleId" [disabled]="true" cSelect>
+                        <option value="-1" i18n="@@selectRole">Select Role</option>
+                        <option *ngFor="let item of roles" [value]="item.id">{{ item.name }}</option>
+                    </select>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="mallId" i18n="@@selectMallLabel">Select mall:</label>
+                    <select cFormControl formControlName="mallId" [disabled]="true" cSelect>
+                        <option value="-1" i18n="@@selectMall">Select Mall</option>
+                    </select>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="officeId" i18n="@@selectOfficelabel">Select office:</label>
+                    <select cFormControl formControlName="officeId" [disabled]="true" cSelect>
+                        <option value="-1" i18n="@@selectOffice">Select office</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">   
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="email" i18n="@@emailHaveSpanChild">Email:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="email" readonly type="text" />
+                </div>
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="phoneNumber" i18n="@@phoneNumberLabel">PhoneNumber:</label>
+                    <input cFormControl formControlName="phoneNumber" readonly type="text" maxlength="10" />              
+                </div>
+                <div class="col-12 col-sm-4">
+                    <label cLabel for="userName" i18n="@@userNameHaveSpanChild">UserName:<span class="text-danger">(*)</span></label>
+                    <input cFormControl formControlName="userName" readonly type="text" />
+                </div>
+            </div>
+        </form>
+    </c-card-body>
+  </c-card>
+<c-modal backdrop="static" [visible]="visibleChangePassword" id="staticBackdropModal1"
+  (visibleChange)="handleChangePasswordChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle i18n="@@changePassword">Change Password</h5>
+    <button (click)="toggleChangePassword()" cButtonClose></button>
+  </c-modal-header>
+  <form cForm [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePassword()">
+    <c-modal-body>
+      <div *ngIf="changePasswordFormError" class="text-danger mb-2">
+        {{changePasswordFormError}}
+      </div>
+      <div class="mb-2 position-relative">
+        <input cFormControl type="password" formControlName="oldPassword" id="oldPassword"
+          placeholder="Enter old password..." i18n-placeholder="@@InputOldPasswordPlaceholder" />
+        <div (click)="ShowPassword('oldPassword')">
+          @if(showOldPassword){
+          <app-eye-icon class="eyeIcon"></app-eye-icon>
+          }
+          @else{
+          <app-eye-close-icon class="eyeIcon"></app-eye-close-icon>
+          }
+        </div>
+      </div>
+      <div *ngIf="oldPassword?.invalid && (oldPassword?.dirty || oldPassword?.touched)" class="text-danger mb-2">
+        <div *ngIf="oldPassword?.hasError('required')" i18n="@@oldPasswordRequiredWarning">
+          Old password is required
+        </div>
+      </div>
+      <div class="mb-2 position-relative">
+        <input cFormControl type="password" formControlName="newPassword" id="newPassword" maxlength="20"
+          placeholder="Enter new password..." i18n-placeholder="@@inputNewPasswordPlaceholder" />
+        <div (click)="ShowPassword('newPassword')">
+          @if(showNewPassword){
+          <app-eye-icon class="eyeIcon"></app-eye-icon>
+          }
+          @else{
+          <app-eye-close-icon class="eyeIcon"></app-eye-close-icon>
+          }
+        </div>
+      </div>
+      <div *ngIf="newPassword?.invalid && (newPassword?.dirty || newPassword?.touched)" class="text-danger mb-2">
+        <div *ngIf="newPassword?.hasError('required')" i18n="@@newPasswordRequiredWarning">
+          New password is required
+        </div>
+        <div *ngIf="newPassword?.hasError('minlength')" i18n="@@newPasswordInvalidMinLengthWarning">
+          New password must be at least 6 characters long and at most 20 characters long
+        </div>
+      </div>
+      <div class="mb-2 position-relative">
+        <input cFormControl type="password" formControlName="confirmPassword" id="confirmPassword" maxlength="20"
+          placeholder="Enter confirm password..." i18n-placeholder="@@inputConfirmPasswordPlaceholder" />
+        <div (click)="ShowPassword('confirmPassword')">
+          @if(showConfirmPassword){
+          <app-eye-icon class="eyeIcon"></app-eye-icon>
+          }
+          @else{
+          <app-eye-close-icon class="eyeIcon"></app-eye-close-icon>
+          }
+        </div>
+      </div>
+      <div *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)"
+        class="text-danger mb-2">
+        <div *ngIf="confirmPassword?.hasError('required')" i18n="@@confirmPasswordRequiredWarning">
+          Confirm password is required
+        </div>
+        <div *ngIf="confirmPassword?.hasError('minlength')" i18n="@@newPasswordInvalidMinLengthWarning">
+          New password must be at least 6 characters long and at most 20 characters long
+        </div>
+      </div>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleChangePassword()" type="button" cButton color="secondary" i18n="@@close">
+        Close
+      </button>
+      <button cButton type="submit" color="primary" [disabled]="!changePasswordForm.valid"
+        i18n="@@confirm">Confirm</button>
+    </c-modal-footer>
+  </form>
+</c-modal>
+<c-toaster class="p-3" position="fixed" placement="top-end">
+  <c-toast (visibleChange)="onVisibleChange($event)" [visible]="visibleToast">
+    <c-toast-header class="bg-success text-white" i18n="@@notification">
+      Notification
+    </c-toast-header>
+    <c-toast-body class="bg-white" i18n="@@notificationChangePasswordSuccessfully">
+      <p>Change password successfully!</p>
+    </c-toast-body>
+  </c-toast>
+</c-toaster>

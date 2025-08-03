@@ -1,0 +1,16 @@
+.btn-collopanse {
+  padding: 4px 6px;
+  border: 1px solid #c1c1c1;
+  background-color: rgba(233, 226, 226, 0.8);
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.btn-collopanse span {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.active {
+  background-color: #fa7c7c;
+}/*# sourceMappingURL=create.component.css.map */

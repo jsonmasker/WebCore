@@ -1,0 +1,14 @@
+<div class="chat-container">
+  <div class="messages">
+    <div *ngFor="let message of messages; index as i" [ngClass]="{'user-message': message.sender === 'User', 'bot-message': message.sender === 'Bot'}">
+      <strong class="me-2">{{ message.sender }}:</strong> 
+      <span [innerHTML]="message.text" *ngIf="i != index"></span>
+      <span [innerHTML]="text" *ngIf="i == index"></span>
+    </div>
+    <div *ngIf="loading" class="loading">Bot is typing...</div>
+  </div>
+  <div class="input-container">
+    <input [(ngModel)]="userInput" placeholder="Type your message..." (keyup.enter)="sendMessage()"/>
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>

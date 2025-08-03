@@ -1,0 +1,23 @@
+<c-card class="mb-4" *ngIf="data.totalItems > 0">
+  <c-card-header>
+    <select (change)="pageSizeChange($event)">
+      <option *ngFor="let size of paseSizeOptions" [value]="size" [selected]="size === data.pageSize">{{size}}</option>
+    </select>
+    entries per page
+  </c-card-header>
+  <c-card-body>
+    <table [hover]="true" [responsive]="true" [striped]="striped" align="middle" cTable>
+      <ng-content></ng-content>
+    </table>
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <div class="d-flex align-items-center">
+        <span>Showing {{data.pageSize * data.currentPage - data.pageSize + 1}} to
+          {{data.pageSize * data.currentPage > data.totalItems ? data.totalItems : data.pageSize * data.currentPage }}
+          of
+          {{data.totalItems}} entries</span>
+      </div>
+      <app-custom-pagination [totalPages]="data.totalPages"
+        (pageChanged)="pageIndexChange($event)"></app-custom-pagination>
+    </div>
+  </c-card-body>
+</c-card>

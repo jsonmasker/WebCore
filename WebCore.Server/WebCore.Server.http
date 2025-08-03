@@ -1,0 +1,6 @@
+@WebCore.Server_HostAddress = http://localhost:5031
+
+GET {{WebCore.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

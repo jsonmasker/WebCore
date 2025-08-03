@@ -1,0 +1,13 @@
+    <nz-select
+      [nzMaxTagCount]="3"
+      [nzMaxTagPlaceholder]="tagPlaceHolder"
+      nzMode="multiple"
+      nzPlaceHolder="Please select"
+      [(ngModel)]="listOfSelectedValue"
+      class="w-100"
+    >
+      @for (item of listOfOption; track item) {
+        <nz-option [nzLabel]="item" [nzValue]="item"></nz-option>
+      }
+    </nz-select>
+    <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>

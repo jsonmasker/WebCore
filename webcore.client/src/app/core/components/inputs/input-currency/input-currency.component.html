@@ -1,0 +1,18 @@
+
+<div class="currency-input" [class.disabled]="disabled">
+  <span>{{ currencySymbol }}</span>
+  <input 
+    type="text" 
+    [placeholder]="placeholder" 
+    appThousandSeparator
+    [formControl]="amountCtrl" 
+    [allowDecimal]="allowDecimal"
+    [maxDecimals]="maxDecimals"
+    [readonly]="disabled"
+    (numericValueChange)="onNumericValueChange($event)"
+    (blur)="onInputBlur()"
+    autocomplete="off"
+    aria-label="Amount"
+    class="currency-input-field" />
+  <span>{{ currency }}</span>
+</div>

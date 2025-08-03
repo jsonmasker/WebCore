@@ -1,0 +1,60 @@
+<h1>Create Role</h1>
+<c-card>
+  <c-card-body>
+    <form cForm [formGroup]="createForm" (ngSubmit)="onSubmit()">
+      <div class="mb-2">
+          <c-form-check>
+            <input cFormCheckInput formControlName="isActive" id="isActive" type="checkbox" class="me-2" />
+            <label cFormCheckLabel for="isActive">Active</label>
+          </c-form-check>
+      </div>
+      <div class="row mb-md-3">
+          <div class="col-12 col-sm-4">
+            <label cLabel for="name">Name:<span class="text-danger">(*)</span></label>
+            <input cFormControl formControlName="name"
+                   type="text"/>
+          </div>
+          <div class="col-12 col-sm-8">
+            <label cLabel for="description">Description:</label>
+            <textarea cFormControl formControlName="description" id="description" rows="1"></textarea>
+          </div>
+      </div>
+      <h3>Role claims</h3>
+      <div class="mb-3">
+          <div  *ngFor="let item of modules; index as i ">
+            <div (click)="toggleCollapse(i)" class="mb-3 btn-collopanse w-100 {{visible[i] ? 'active':''}}" color="primary">
+              <span>
+                {{item.name}}
+              </span>
+              <svg [cIcon]="visible[i] ? icons.cilArrowThickBottom : icons.cilArrowThickRight" class="me-2" width="14" title="Shield Icon"></svg>  
+            </div>
+            <ng-container *ngIf="item.roleClaimGroups">
+              <div [visible]="visible[i]" cCollapse >
+                <c-card  class="mb-3">
+                  <c-card-body>
+                    <div class="mx-2" *ngFor="let group of item.roleClaimGroups; index as j ">
+                      <h5 class="my-2">{{group.name}}</h5>
+                      <div class="d-flex ms-2" *ngIf="group.roleClaims">
+                        <ng-container *ngFor="let claim of group.roleClaims; index as k ">
+                          <c-form-check class="me-2">
+                            <input type="checkbox" class="me-2" />
+                            <!-- <input cFormCheckInput formControlName="selectedRoleClaims" [value]="claim.id" id="selectedRoleClaims{{i}}{{j}}{{k}}" type="checkbox" class="me-2" /> -->
+                            <label cFormCheckLabel for="selectedRoleClaims{{i}}{{j}}{{k}}">{{claim.name}}</label>
+                          </c-form-check>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </c-card-body>
+                </c-card>
+              </div>
+            </ng-container>
+          </div>
+      </div>
+        <div class="d-flex justify-content-end">
+            <button cButton type="submit" type="submit"  >Submit</button>
+            <button cButton type="button" routerLink="/system-management/extension/roles"  class="ms-2 btn-info">Back to list</button>
+        </div>
+      </form>
+  </c-card-body>
+</c-card>
+  

@@ -1,0 +1,17 @@
+
+.rating {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .rating span {
+    font-size: 24px;
+    color: lightgray;
+    transition: color 0.3s;
+  }
+  
+  .rating span.filled {
+    color: gold;
+  }
+  

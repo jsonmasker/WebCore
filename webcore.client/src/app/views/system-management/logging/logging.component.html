@@ -1,0 +1,115 @@
+<h1>Action Logging List</h1>
+<c-accordion class="mb-4">
+  <c-accordion-item #item0="cAccordionItem" [visible]="true">
+    <ng-template cTemplateId="accordionHeaderTemplate">
+      <button (click)="item0.toggleItem()" [collapsed]="!item0.visible" cAccordionButton>
+        Filter:
+      </button>
+    </ng-template>
+    <ng-template cTemplateId="accordionBodyTemplate">
+      <div class="accordion-body">
+        <div class="row">
+          <div class="">
+            <form cForm [formGroup]="queryParamForm" class="w-100 d-flex align-items-center"
+              (ngSubmit)="onExecuteSubmit()">
+              <div class="row me-2">
+                <div cFormFloating class="col-3">
+                  <select class="form-control" id="action" cSelect formControlName="action">
+                    <option value="-1" i18n="@@allAction">All Action</option>
+                    <option *ngFor="let item of actions" [value]="item.value">{{item.key}}</option>
+                  </select>
+                </div>
+                <div cFormFloating class="col-3">
+                  <select class="form-control" id="controller" cSelect formControlName="controller">
+                    <option value="-1" i18n="@@allController">All Controller</option>
+                    <option *ngFor="let item of controllers" [value]="item.value">{{item.key}}</option>
+                  </select>
+                </div>
+                <div cFormFloating class="col-3">
+                  <input type="date" class="form-control" placeholder="From" formControlName="startDate">
+                </div>
+                <div cFormFloating class="col-3">
+                  <input type="date" class="form-control" placeholder="To" cInput formControlName="endDate">
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit" type="submit" i18n="@@find">Find</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </c-accordion-item>
+</c-accordion>
+
+<app-data-table [data]="pageInformation" (changePageIndex)="onPageIndexChange($event)"
+  (changePageSize)="onPageSizeChange($event)">
+  <thead class="text-nowrap text-truncate">
+    <tr>
+      <th scope="col" i18n="@@thSTT">STT</th>
+      <th scope="col" i18n="@@thUserName">UserName</th>
+      <th scope="col" i18n="@@thControllerName">ControllerName</th>
+      <th scope="col" i18n="@@thActionName">ActionName</th>
+      <th scope="col" i18n="@@thStatus">Status</th>
+      <th scope="col" i18n="@@thCreatedOn">CreatedOn</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data.items; index as i ">
+      <td>{{ i+1 }}</td>
+      <td>{{ item.userName }}</td>
+      <td>{{ item.controllerName }}</td>
+      <td>{{ item.actionName }}</td>
+      <td>{{ item.status }}</td>
+      <td>{{ item.createdDate | date: "dd/MM/yyy hh:mm:ss" }}</td>
+      <td>
+        <div class="d-flex justify-content-end">
+          <button (click)="updateData(item.id)" class="btn btn-primary me-2" i18n="@@detail">Detail</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</app-data-table>
+
+<c-modal backdrop="static" [visible]="visibleUpdateModal" (visibleChange)="handleLiveUpdateModelChange($event)"
+  id="verticallyCenteredUpdateModal" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle i18n="@@information">Information</h5>
+    <button (click)="toggleLiveUpdateModel()" cButtonClose></button>
+  </c-modal-header>
+  <form cForm [formGroup]="updateForm">
+    <c-modal-body>
+      <div class="row mb-2">
+        <div class="col-6">
+          <label cLabel="" for="userName" class="me-2" i18n="@@userName">User Name: </label>
+          <input cFormControl formControlName="userName" class="me-2" readonly [disabled]="true">
+        </div>
+        <div class="col-6">
+          <label cLabel for="createdDate" class="me-2" i18n="@@createdOn">CreatedOn: </label>
+          <input cFormControl formControlName="createdDate" class="me-2" readonly [disabled]="true">
+        </div>
+      </div>
+      <div class="mb-2 row">
+        <div class="col-6">
+          <label cLabel for="actionName" i18n="@@actionName">Action Name:</label>
+          <input cFormControl formControlName="actionName" type="text" class="me-2" readonly [disabled]="true">
+        </div>
+        <div class="col-6">
+          <label cLabel for="controllerName" i18n="@@controllerName">Controller Name: </label>
+          <input cFormControl formControlName="controllerName" type="text" class="me-2" readonly [disabled]="true">
+        </div>
+      </div>
+      <div class="mb-2 row">
+        <div class="col-12">
+          <label cLabel for="details" i18n="@@detail">Detail: </label>
+          <textarea cFormControl formControlName="details" rows="10"></textarea>
+        </div>
+      </div>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleLiveUpdateModel()" cButton color="secondary" i18n="@@close">
+        Close
+      </button>
+    </c-modal-footer>
+  </form>
+</c-modal>

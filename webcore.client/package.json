@@ -1,0 +1,60 @@
+{
+  "name": "webcore.client",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "prestart": "tsc src/proxy.conf.ts --outDir dist",
+    "start": "ng serve --proxy-config dist/proxy.conf.js",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "start:windows": "ng serve --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\" --host=127.0.0.1",
+    "start:default": "ng serve --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\" --host=127.0.0.1"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^20.1.3",
+    "@angular/cdk": "^20.1.3",
+    "@angular/common": "^20.1.3",
+    "@angular/compiler": "^20.1.3",
+    "@angular/core": "^20.1.3",
+    "@angular/forms": "^20.1.3",
+    "@angular/platform-browser": "^20.1.3",
+    "@angular/platform-browser-dynamic": "^20.1.3",
+    "@angular/router": "^20.1.3",
+    "@coreui/angular": "^5.5.5",
+    "@coreui/angular-chartjs": "^5.5.5",
+    "@coreui/chartjs": "^4.0.0",
+    "@coreui/coreui": "^5.4.0",
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-angular": "^5.5.5",
+    "@coreui/utils": "^2.0.2",
+    "chart.js": "^4.4.9",
+    "jwt-decode": "^4.0.0",
+    "lodash-es": "^4.17.21",
+    "ng-zorro-antd": "^20.1.0",
+    "ngx-scrollbar": "^18.0.0",
+    "run-script-os": "*",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^20.1.2",
+    "@angular/cli": "^20.1.2",
+    "@angular/compiler-cli": "^20.1.3",
+    "@angular/localize": "^20.1.3",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.8.3"
+  },
+  "overrides": {
+    "glob": "^10.4.5",
+    "rimraf": "^5.0.10"
+  }
+}

@@ -1,0 +1,73 @@
+    <div class="demo-container">
+      <h2>Thousand Separator Input Demo</h2>
+      
+      <div class="input-group">
+        <label for="currency">Currency (with decimals):</label>
+        <input
+          id="currency"
+          type="text"
+          placeholder="Enter amount"
+          [(ngModel)]="currencyValue"
+          appThousandSeparator
+          [allowDecimal]="true"
+          [maxDecimals]="2"
+          (numericValueChange)="onCurrencyNumericChange($event)"
+          class="thousand-input"
+        />
+        <small>Display Value: {{ currencyValue || 'Empty' }}</small>
+        <small class="numeric-value">Raw Numeric Value: {{ currencyNumericValue ?? 'null' }}</small>
+      </div>
+
+      <div class="input-group">
+        <label for="integer">Integer only:</label>
+        <input
+          id="integer"
+          type="text"
+          placeholder="Enter number"
+          [(ngModel)]="integerValue"
+          appThousandSeparator
+          [allowDecimal]="false"
+          (numericValueChange)="onIntegerNumericChange($event)"
+          class="thousand-input"
+        />
+        <small>Display Value: {{ integerValue || 'Empty' }}</small>
+        <small class="numeric-value">Raw Numeric Value: {{ integerNumericValue ?? 'null' }}</small>
+      </div>
+
+      <div class="input-group">
+        <label for="custom-separator">Custom separator (semicolon):</label>
+        <input
+          id="custom-separator"
+          type="text"
+          placeholder="Enter amount"
+          [(ngModel)]="customSeparatorValue"
+          appThousandSeparator
+          [separator]="';'"
+          [allowDecimal]="true"
+          [maxDecimals]="3"
+          (numericValueChange)="onCustomSeparatorNumericChange($event)"
+          class="thousand-input"
+        />
+        <small>Display Value: {{ customSeparatorValue || 'Empty' }}</small>
+        <small class="numeric-value">Raw Numeric Value: {{ customSeparatorNumericValue ?? 'null' }}</small>
+      </div>
+
+      <div class="submit-section">
+        <button (click)="onSubmit()" class="submit-btn">
+          Submit Form (Check Console)
+        </button>
+      </div>
+
+      <div class="values-display">
+        <h3>Backend Submission Data:</h3>
+        <div class="json-display">
+          <pre>{{
+            {
+              currency: currencyNumericValue,
+              integer: integerNumericValue,
+              customSeparator: customSeparatorNumericValue
+            } | json
+          }}</pre>
+        </div>
+      </div>
+    </div>
