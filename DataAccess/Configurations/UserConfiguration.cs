@@ -23,6 +23,7 @@ namespace DataAccess.Configurations
                 UserName = "admin",
                 NormalizedUserName ="ADMIN",
                 NormalizedEmail = "JSONMASKER@GMAIL.COM",
+                //123123
                 PasswordHash = "AQAAAAIAAYagAAAAEB0Hdhuj4HcnoBu9LWgJK4dnP9DqV8kiBJBnNBsEAZSgpPaW+401U1IHYk43xxFi0g==",
                 SecurityStamp = "I665EUWG7LEWP6W6YKD2GEI5DWUK2KCE",
                 ConcurrencyStamp = "d8fb4ea3-3b74-40c4-ba5f-a35d02fc1566",

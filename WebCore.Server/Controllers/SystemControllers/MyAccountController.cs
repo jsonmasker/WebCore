@@ -48,7 +48,7 @@ namespace LulusiaAdmin.Server.Controllers.SystemControllers
             };
             if (!ModelState.IsValid)
             {
-                await _actionLog.CreateAsync(userAction);
+                //await _actionLog.CreateAsync(userAction);
                 return Failed(EStatusCodes.BadRequest, _sharedLocalizer["invalidData"]);
             }
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, lockoutOnFailure: true);
@@ -57,17 +57,17 @@ namespace LulusiaAdmin.Server.Controllers.SystemControllers
                 await _signInManager.SignOutAsync();
                 JwtViewModel jwt = await _myAccountHelper.LoginAsync(model);
                 userAction.Status = EUserActionStatus.Successful.ToString();
-                await _actionLog.CreateAsync(userAction);
+                //await _actionLog.CreateAsync(userAction);
                 return Succeeded<JwtViewModel>(jwt, _localizer["loginSuccess"]);
             }
             else if (result.IsLockedOut)
             {
-                await _actionLog.CreateAsync(userAction);
+                //await _actionLog.CreateAsync(userAction);
                 return Failed(EStatusCodes.Locked, _localizer["accountLocked"]);
             }
             else
             {
-                await _actionLog.CreateAsync(userAction);
+                //await _actionLog.CreateAsync(userAction);
                 return Failed(EStatusCodes.BadRequest, _localizer["usernameOrPasswordIncorrect"]);
             }
         }
