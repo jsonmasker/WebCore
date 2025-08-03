@@ -1,3 +1,6 @@
+#Note
+Intro Link: https://github.com/thannong123zero/WebCore_V2
+
 # WebCore V2 🚀
 
 A comprehensive, enterprise-ready web application framework built with .NET 9 and Angular 20, designed for rapid development of modern web applications with built-in enterprise features.
