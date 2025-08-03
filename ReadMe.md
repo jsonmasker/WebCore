@@ -1,4 +1,4 @@
-Intro Link: https://github.com/thannong123zero/WebCore_V2
+Intro Link: https://www.youtube.com/watch?v=RyobJ_-ETwo
 
 # WebCore V2 🚀
 
