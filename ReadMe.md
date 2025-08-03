@@ -1,4 +1,3 @@
-#Note
 Intro Link: https://github.com/thannong123zero/WebCore_V2
 
 # WebCore V2 🚀
