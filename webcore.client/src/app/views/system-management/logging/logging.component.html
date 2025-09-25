@@ -16,13 +16,17 @@
                 <div cFormFloating class="col-3">
                   <select class="form-control" id="action" cSelect formControlName="action">
                     <option value="-1" i18n="@@allAction">All Action</option>
-                    <option *ngFor="let item of actions" [value]="item.value">{{item.key}}</option>
+                    @for (item of actions; track $index) {
+                      <option [value]="item.value">{{item.key}}</option>
+                    }
                   </select>
                 </div>
                 <div cFormFloating class="col-3">
                   <select class="form-control" id="controller" cSelect formControlName="controller">
                     <option value="-1" i18n="@@allController">All Controller</option>
-                    <option *ngFor="let item of controllers" [value]="item.value">{{item.key}}</option>
+                    @for (item of controllers; track $index) {
+                      <option [value]="item.value">{{item.key}}</option>
+                    }
                   </select>
                 </div>
                 <div cFormFloating class="col-3">
@@ -55,8 +59,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of data.items; index as i ">
-      <td>{{ i+1 }}</td>
+    @for (item of data.items; track $index) {
+    <tr>
+      <td>{{ $index + 1 }}</td>
       <td>{{ item.userName }}</td>
       <td>{{ item.controllerName }}</td>
       <td>{{ item.actionName }}</td>
@@ -68,6 +73,7 @@
         </div>
       </td>
     </tr>
+    }
   </tbody>
 </app-data-table>
 

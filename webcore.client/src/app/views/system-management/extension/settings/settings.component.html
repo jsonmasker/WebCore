@@ -13,8 +13,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of actionList; index as i ">
-              <td>{{ i+1 }}</td>
+        @for (item of actionList; track $index) {
+          <tr>
+              <td>{{ $index + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.label }}</td>
               <td>
@@ -23,6 +24,7 @@
                 </div>
               </td>
           </tr>
+        }
       </tbody>
     </table>
   </c-card-body>
@@ -40,20 +42,24 @@
         <div class="col-6">
           <label cLabel for="name" class="me-2">Name: <span class="text-danger">(*)</span> </label>
           <input cFormControl formControlName="name">
-          <div *ngIf="nameUpdateForm?.invalid && (nameUpdateForm?.dirty || nameUpdateForm?.touched)" class="text-danger">
-            <div *ngIf="nameUpdateForm?.hasError('required')">
-              NameEN is required.
+          @if (nameUpdateForm?.invalid && (nameUpdateForm?.dirty || nameUpdateForm?.touched)) {
+            <div class="text-danger">
+              @if (nameUpdateForm?.hasError('required')) {
+                <div>NameEN is required.</div>
+              }
             </div>
-          </div>
+          }
         </div>
         <div class="col-6">
           <label cLabel for="label">Label: <span class="text-danger">(*)</span></label>
           <input cFormControl formControlName="label">
-          <div *ngIf="labelUpdateForm?.invalid && (labelUpdateForm?.dirty || labelUpdateForm?.touched)" class="text-danger">
-            <div *ngIf="labelUpdateForm?.hasError('required')">
-              Label is required.
+          @if (labelUpdateForm?.invalid && (labelUpdateForm?.dirty || labelUpdateForm?.touched)) {
+            <div class="text-danger">
+              @if (labelUpdateForm?.hasError('required')) {
+                <div>Label is required.</div>
+              }
             </div>
-          </div>
+          }
         </div>     
       </div>
     </c-modal-body>

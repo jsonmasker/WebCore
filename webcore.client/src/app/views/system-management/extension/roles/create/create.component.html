@@ -21,34 +21,38 @@
       </div>
       <h3>Role claims</h3>
       <div class="mb-3">
-          <div  *ngFor="let item of modules; index as i ">
-            <div (click)="toggleCollapse(i)" class="mb-3 btn-collopanse w-100 {{visible[i] ? 'active':''}}" color="primary">
+          @for (item of modules; track $index) {
+            <div (click)="toggleCollapse($index)" class="mb-3 btn-collopanse w-100 {{visible[$index] ? 'active':''}}" color="primary">
               <span>
                 {{item.name}}
               </span>
-              <svg [cIcon]="visible[i] ? icons.cilArrowThickBottom : icons.cilArrowThickRight" class="me-2" width="14" title="Shield Icon"></svg>  
+              <svg [cIcon]="visible[$index] ? icons.cilArrowThickBottom : icons.cilArrowThickRight" class="me-2" width="14" title="Shield Icon"></svg>  
             </div>
-            <ng-container *ngIf="item.roleClaimGroups">
-              <div [visible]="visible[i]" cCollapse >
+            @if (item.roleClaimGroups) {
+              <div [visible]="visible[$index]" cCollapse >
                 <c-card  class="mb-3">
                   <c-card-body>
-                    <div class="mx-2" *ngFor="let group of item.roleClaimGroups; index as j ">
-                      <h5 class="my-2">{{group.name}}</h5>
-                      <div class="d-flex ms-2" *ngIf="group.roleClaims">
-                        <ng-container *ngFor="let claim of group.roleClaims; index as k ">
-                          <c-form-check class="me-2">
-                            <input type="checkbox" class="me-2" />
-                            <!-- <input cFormCheckInput formControlName="selectedRoleClaims" [value]="claim.id" id="selectedRoleClaims{{i}}{{j}}{{k}}" type="checkbox" class="me-2" /> -->
-                            <label cFormCheckLabel for="selectedRoleClaims{{i}}{{j}}{{k}}">{{claim.name}}</label>
-                          </c-form-check>
-                        </ng-container>
+                    @for (group of item.roleClaimGroups; track $index) {
+                      <div class="mx-2">
+                        <h5 class="my-2">{{group.name}}</h5>
+                        @if (group.roleClaims) {
+                          <div class="d-flex ms-2">
+                            @for (claim of group.roleClaims; track $index) {
+                              <c-form-check class="me-2">
+                                <input type="checkbox" class="me-2" />
+                                <!-- <input cFormCheckInput formControlName="selectedRoleClaims" [value]="claim.id" id="selectedRoleClaims{{$index}}{{$index}}{{$index}}" type="checkbox" class="me-2" /> -->
+                                <label cFormCheckLabel>{{claim.name}}</label>
+                              </c-form-check>
+                            }
+                          </div>
+                        }
                       </div>
-                    </div>
+                    }
                   </c-card-body>
                 </c-card>
               </div>
-            </ng-container>
-          </div>
+            }
+          }
       </div>
         <div class="d-flex justify-content-end">
             <button cButton type="submit" type="submit"  >Submit</button>

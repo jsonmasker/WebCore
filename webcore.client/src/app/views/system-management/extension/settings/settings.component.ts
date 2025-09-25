@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, FormCheckComponent, FormControlDirective, FormDirective, FormLabelDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, ModalToggleDirective, TableDirective } from '@coreui/angular';
@@ -9,7 +8,7 @@ import { ActionService } from '@services/system-services/action.service';
 
 @Component({
   selector: 'app-settings',
-  imports: [TableDirective, CardComponent, ModalBodyComponent, NgFor, NgIf, FormControlDirective, FormLabelDirective,
+  imports: [TableDirective, CardComponent, ModalBodyComponent, FormControlDirective, FormLabelDirective,
     ModalComponent, ButtonDirective, FormDirective, ReactiveFormsModule,
     ModalFooterComponent, ButtonCloseDirective, ModalHeaderComponent,
     CardBodyComponent, CardHeaderComponent],

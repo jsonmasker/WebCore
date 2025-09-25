@@ -8,11 +8,15 @@
                     <div class="mb-2">
                         <label cLabel for="content">Content: <span class="text-danger">(*)</span></label>
                         <input cFormControl formControlName="content" type="text" />
-                        <div *ngIf="content?.invalid && (content?.dirty || content?.touched)" class="text-danger">
-                            <div *ngIf="content?.hasError('required')">
-                                Enter content, please!
-                            </div>
-                        </div>
+                                                @if (content?.invalid && (content?.dirty || content?.touched)) {
+                                                    <div class="text-danger">
+                                                        @if (content?.hasError('required')) {
+                                                            <div>
+                                                                Enter content, please!
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                }
                     </div>
                     <div class="row mb-2">
                         <div class="col-12 col-sm-6">
@@ -39,20 +43,28 @@
                         <div class="col-3">
                             <label cLabel for="size">Size: <span class="text-danger">(*)</span></label>
                             <input cFormControl formControlName="size" type="number" />
-                            <div *ngIf="size?.invalid && (size?.dirty || size?.touched)" class="text-danger">
-                                <div *ngIf="size?.hasError('min')">
-                                    Minimum is 20 and Maximum is 500
-                                </div>
-                            </div>
+                                                        @if (size?.invalid && (size?.dirty || size?.touched)) {
+                                                            <div class="text-danger">
+                                                                @if (size?.hasError('min')) {
+                                                                    <div>
+                                                                        Minimum is 20 and Maximum is 500
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
                         </div>
                         <div class="col-3">
                             <label cLabel for="border">Border: <span class="text-danger">(*)</span></label>
                             <input cFormControl formControlName="border" type="number" />
-                            <div *ngIf="border?.invalid && (border?.dirty || border?.touched)" class="text-danger">
-                                <div *ngIf="border?.hasError('min') || border?.hasError('max')">
-                                    Minimum is 0 and Maximum is 100
-                                </div>
-                            </div>
+                                                        @if (border?.invalid && (border?.dirty || border?.touched)) {
+                                                            <div class="text-danger">
+                                                                @if (border?.hasError('min') || border?.hasError('max')) {
+                                                                    <div>
+                                                                        Minimum is 0 and Maximum is 100
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -76,13 +88,16 @@
                 </form>   
             </div>
             <div class="col-4">
-                <div class="qrImage" *ngIf="!qrCodeImageUrl" [innerHTML]="demoLogo"></div>
-                <div class="qrImage" *ngIf="qrCodeImageUrl">
+                                @if (!qrCodeImageUrl) {
+                                    <div class="qrImage" [innerHTML]="demoLogo"></div>
+                                } @else {
+                                    <div class="qrImage">
                     <a class="d-flex flex-column justify-content-center" href="{{qrCodeImageUrl}}" download>
                         <img class="m-auto" [src]="qrCodeImageUrl" alt="Generated QR Code" />
                     </a>
                     <h6 class="text-center mt-2">Click QR Code to download!</h6>
-                </div>       
+                                    </div>
+                                }
             </div>
         </div>
     </c-card-body>
@@ -99,29 +114,37 @@
                 <div class="col-12 col-sm-6">
                     <label cLabel for="quantity">Quantity:</label>
                     <input cFormControl formControlName="quantity" type="number" />
-                    <div *ngIf="quantity?.invalid && (quantity?.dirty || quantity?.touched)" class="text-danger">
-                        <div *ngIf="quantity?.hasError('min')">
-                            Minimum is 1
-                        </div>
-                    </div>
+                                        @if (quantity?.invalid && (quantity?.dirty || quantity?.touched)) {
+                                            <div class="text-danger">
+                                                @if (quantity?.hasError('min')) {
+                                                    <div>
+                                                        Minimum is 1
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                 </div>
                 <div class="col-12 col-sm-6">
                     <label cLabel for="codeLength">CodeLength:</label>
                     <input cFormControl formControlName="codeLength" type="number" />
-                    <div *ngIf="codeLength?.invalid && (codeLength?.dirty || codeLength?.touched)" class="text-danger">
-                        <div *ngIf="codeLength?.hasError('min')">
-                            Minimum is 1
-                        </div>
-                        <div *ngIf="codeLength?.hasError('max')">
-                            Maximun is 100
-                        </div>
-                    </div>
+                                        @if (codeLength?.invalid && (codeLength?.dirty || codeLength?.touched)) {
+                                            <div class="text-danger">
+                                                @if (codeLength?.hasError('min')) {
+                                                    <div>Minimum is 1</div>
+                                                }
+                                                @if (codeLength?.hasError('max')) {
+                                                    <div>Maximun is 100</div>
+                                                }
+                                            </div>
+                                        }
                 </div>
                 <div class="col-12 col-sm-6">
                     <label cLabel for="randomType">CodeType:</label>
-                    <select cFormControl formControlName="randomType" id="randomType" cSelect>
-                        <option *ngFor="let item of qrCodeTypeList; index as i" [value]="i"> {{item}} </option>
-                  </select>
+                                        <select cFormControl formControlName="randomType" id="randomType" cSelect>
+                                            @for (item of qrCodeTypeList; track $index) {
+                                                <option [value]="$index"> {{item}} </option>
+                                            }
+                                    </select>
                 </div>
             </div>
             <div class="d-flex justify-content-end">

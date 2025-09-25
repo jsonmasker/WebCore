@@ -1,7 +1,9 @@
 <h1>Action List</h1>
-<div class="d-flex justify-content-end mb-2" *ngIf="eActionList.length > 0">
-  <button (click)="toggleLiveCreateModel()" class="btn btn-success" i18n="@@create">Create</button>
-</div>
+@if (eActionList.length > 0) {
+  <div class="d-flex justify-content-end mb-2">
+    <button (click)="toggleLiveCreateModel()" class="btn btn-success" i18n="@@create">Create</button>
+  </div>
+}
 <app-data-table [data]="pageInformation"
 (changePageIndex)="onPageIndexChange($event)" (changePageSize)="onPageSizeChange($event)">
 <thead class="text-nowrap text-truncate">
@@ -14,8 +16,9 @@
   </tr>
 </thead>
 <tbody>
-  <tr *ngFor="let item of data.items; index as i ">
-        <td>{{ i+1 }}</td>
+  @for (item of data.items; track $index) {
+    <tr>
+        <td>{{ $index + 1 }}</td>
         <td>{{ item.label }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.priority }}</td>
@@ -25,6 +28,7 @@
           </div>
         </td>
     </tr>
+  }
 </tbody>
 </app-data-table>
 
@@ -40,33 +44,41 @@
     <div class="mb-2">
         <label for="priority">Priority:</label>
         <input formControlName="priority" type="number" class="priorityInput ms-2" />
-        <div *ngIf="priorityCreateForm?.invalid && (priorityCreateForm?.dirty || priorityCreateForm?.touched)" class="text-danger">
-          <div *ngIf="priorityCreateForm?.hasError('min') || priorityCreateForm?.hasError('max')">
-            Priority must be between 1 and 100.
+        @if (priorityCreateForm?.invalid && (priorityCreateForm?.dirty || priorityCreateForm?.touched)) {
+          <div class="text-danger">
+            @if (priorityCreateForm?.hasError('min') || priorityCreateForm?.hasError('max')) {
+              <div>Priority must be between 1 and 100.</div>
+            }
           </div>
-        </div>
+        }
     </div>
       <div class="mb-2 row">
         <div class="col-6">
           <label cLabel for="label">Label: <span class="text-danger">(*)</span></label>
           <select cFormControl formControlName="label" cSelect>
             <option value="" disabled>Select label</option>
-            <option *ngFor="let label of eActionList" [value]="label">{{ label }}</option>
+            @for (label of eActionList; track $index) {
+              <option [value]="label">{{ label }}</option>
+            }
           </select>
-          <div *ngIf="labelCreateForm?.invalid && (labelCreateForm?.dirty || labelCreateForm?.touched)" class="text-danger">
-            <div *ngIf="labelCreateForm?.hasError('required')">
-              Label is required.
+          @if (labelCreateForm?.invalid && (labelCreateForm?.dirty || labelCreateForm?.touched)) {
+            <div class="text-danger">
+              @if (labelCreateForm?.hasError('required')) {
+                <div>Label is required.</div>
+              }
             </div>
-          </div>
+          }
         </div>
         <div class="col-6">
           <label cLabel for="name" class="me-2">Name: <span class="text-danger">(*)</span> </label>
           <input cFormControl formControlName="name">
-          <div *ngIf="nameCreateForm?.invalid && (nameCreateForm?.dirty || nameCreateForm?.touched)" class="text-danger">
-            <div *ngIf="nameCreateForm?.hasError('required')">
-              NameEN is required.
+          @if (nameCreateForm?.invalid && (nameCreateForm?.dirty || nameCreateForm?.touched)) {
+            <div class="text-danger">
+              @if (nameCreateForm?.hasError('required')) {
+                <div>NameEN is required.</div>
+              }
             </div>
-          </div>
+          }
         </div>
       </div>
     </c-modal-body>
@@ -88,11 +100,13 @@
     <c-modal-body>
       <label for="priority">Priority:</label>
         <input formControlName="priority" type="number" class="priorityInput ms-2" />
-        <div *ngIf="priorityUpdateForm?.invalid && (priorityUpdateForm?.dirty || priorityUpdateForm?.touched)" class="text-danger">
-          <div *ngIf="priorityUpdateForm?.hasError('min') || priorityUpdateForm?.hasError('max')">
-            Priority must be between 1 and 100.
+        @if (priorityUpdateForm?.invalid && (priorityUpdateForm?.dirty || priorityUpdateForm?.touched)) {
+          <div class="text-danger">
+            @if (priorityUpdateForm?.hasError('min') || priorityUpdateForm?.hasError('max')) {
+              <div>Priority must be between 1 and 100.</div>
+            }
           </div>
-        </div>
+        }
         <div class="mb-2 row">
         <div class="col-6">
           <label cLabel for="label">Label: <span class="text-danger">(*)</span></label>
@@ -101,11 +115,13 @@
         <div class="col-6">
           <label cLabel for="name" class="me-2">Name: <span class="text-danger">(*)</span> </label>
           <input cFormControl formControlName="name">
-          <div *ngIf="nameUpdateForm?.invalid && (nameUpdateForm?.dirty || nameUpdateForm?.touched)" class="text-danger">
-            <div *ngIf="nameUpdateForm?.hasError('required')">
-              NameEN is required.
+          @if (nameUpdateForm?.invalid && (nameUpdateForm?.dirty || nameUpdateForm?.touched)) {
+            <div class="text-danger">
+              @if (nameUpdateForm?.hasError('required')) {
+                <div>NameEN is required.</div>
+              }
             </div>
-          </div>
+          }
         </div> 
       </div>
     </c-modal-body>

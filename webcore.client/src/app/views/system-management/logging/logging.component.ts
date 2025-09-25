@@ -1,4 +1,4 @@
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Params } from '@angular/router';
@@ -11,7 +11,8 @@ import { DataTableComponent } from '@components/generals/data-table/data-table.c
 
 @Component({
   selector: 'app-logging',
-  imports: [NgFor, DatePipe,
+  standalone: true,
+  imports: [DatePipe,
     ButtonCloseDirective, ButtonDirective, ModalComponent, ModalHeaderComponent, ModalBodyComponent,
     ModalFooterComponent, FormControlDirective, FormLabelDirective, FormDirective, ReactiveFormsModule, DataTableComponent,
     AccordionButtonDirective, AccordionComponent, AccordionItemComponent, TemplateIdDirective,],

@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { CardBodyComponent, CardComponent } from '@coreui/angular';
 import { HttpClient } from '@angular/common/http';
 //import { ChatbotService } from '@services/feature-services/chatbot.service';
-import { SignalRService } from '@services/signalr.service';
+// import { SignalRService } from '@services/signalr.service';
 import { EUrl } from '@common/url-api';
 
 @Component({
@@ -27,15 +27,15 @@ export class AiChatbotComponent implements OnInit{
   data: string = '';
 
   constructor(
-    public signalRService: SignalRService,
+    // public signalRService: SignalRService,
     private http: HttpClient) { }
   ngOnInit(): void {
-    this.signalRService.startConnection(); 
-    this.signalRService.addListener('ReceiveMessage', (message: string) => {
-      //console.log('Received message:', message);
-       this.loading = false; // Stop loading animation 
-      this.data += message.replace(/<br\s*\/?>/gi, '\n');
-    });
+    // this.signalRService.startConnection(); 
+    // this.signalRService.addListener('ReceiveMessage', (message: string) => {
+    //   //console.log('Received message:', message);
+    //    this.loading = false; // Stop loading animation 
+    //   this.data += message.replace(/<br\s*\/?>/gi, '\n');
+    // });
   }
 
   sendMessage(): void {
