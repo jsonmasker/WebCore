@@ -1,18 +1,17 @@
-import { NgFor, NgIf } from '@angular/common';
+import { } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EColors } from '@common/global';
-import { ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, FormCheckComponent, FormControlDirective, FormDirective, FormLabelDirective, FormSelectDirective, TableDirective } from '@coreui/angular';
+import { ButtonDirective, CardBodyComponent, CardComponent, FormControlDirective, FormDirective, FormLabelDirective, FormSelectDirective, TableDirective } from '@coreui/angular';
 import { cilCloudUpload } from '@coreui/icons';
-import { IconDirective } from '@coreui/icons-angular';
-import { QrCodeService } from '@services/feature-services/qr-code.service';
+// import { QrCodeService } from '@services/feature-services/qr-code.service';
 import { LoadingService } from '@services/helper-services/loading.service';
 import { ToastService } from '@services/helper-services/toast.service';
 @Component({
   selector: 'app-qr-code',
   imports: [ CardComponent, CardBodyComponent,FormDirective, FormLabelDirective,
-     FormSelectDirective,NgIf, NgFor,
-      FormControlDirective, ButtonDirective, ReactiveFormsModule],
+    FormSelectDirective,
+    FormControlDirective, ButtonDirective, ReactiveFormsModule],
   templateUrl: './qr-code.component.html',
   styleUrl: './qr-code.component.scss'
 })
@@ -41,7 +40,10 @@ export class QrCodeComponent {
     randomType: new FormControl(0),
   });
 
-  constructor(private qrCodeService: QrCodeService, private toastService: ToastService, private loadingService : LoadingService) { }
+  constructor(
+    // private qrCodeService: QrCodeService, 
+    private toastService: ToastService, 
+    private loadingService : LoadingService) { }
   onFileChange(event: any) {
     const file:File = event.target.files[0];
     if (file) {
@@ -75,13 +77,13 @@ export class QrCodeComponent {
       formData.append('border', this.generateAQrCodeForm.value.border);
       formData.append('fontFamily', this.generateAQrCodeForm.value.fontFamily);
       formData.append('fontSize', this.generateAQrCodeForm.value.fontSize);
-      this.qrCodeService.generateAQRCode(formData).subscribe((res) => {
-        //how to display the qr code image
-        const blob = new Blob([res], { type: 'image/png' });
-        this.qrCodeImageUrl = URL.createObjectURL(blob);
-      }, err => {
-        this.toastService.showToast(EColors.danger,err.message);
-      });
+      // this.qrCodeService.generateAQRCode(formData).subscribe((res) => {
+      //   //how to display the qr code image
+      //   const blob = new Blob([res], { type: 'image/png' });
+      //   this.qrCodeImageUrl = URL.createObjectURL(blob);
+      // }, err => {
+      //   this.toastService.showToast(EColors.danger,err.message);
+      // });
        
     }
   }
@@ -107,18 +109,19 @@ export class QrCodeComponent {
     formData.append('quantity', this.generateListQRCodeForm.value.quantity);
     formData.append('codeLength', this.generateListQRCodeForm.value.codeLength);
     formData.append('randomType', this.generateListQRCodeForm.value.randomType);
-    this.qrCodeService.generateListQRCode(formData).subscribe((res) => {
-    this.loadingService.showLoadingComponent(false);
-      const blob = new Blob([res], { type: 'application/zip' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'QRCode.zip';
-      link.click();
-    }, err => {
-      this.loadingService.showLoadingComponent(false);
-      this.toastService.showToast(EColors.danger,err.message);
-    });
+    // this.qrCodeService.generateListQRCode(formData).subscribe((res) => {
+    //   this.loadingService.showLoadingComponent(false);
+    //     const blob = new Blob([res], { type: 'application/zip' });
+    //     const url = URL.createObjectURL(blob);
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.download = 'QRCode.zip';
+    //     link.click();
+    //   }, err => {
+    //     this.loadingService.showLoadingComponent(false);
+    //     this.toastService.showToast(EColors.danger,err.message);
+    //   }
+    // );
   }
 
 

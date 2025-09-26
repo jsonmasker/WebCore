@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -15,7 +14,7 @@ import { EColors } from '@common/global';
   standalone: true,
   imports: [FormDirective, FormLabelDirective,
     FormControlDirective, ButtonDirective, CollapseDirective, IconDirective,
-    RouterLink, CardComponent, CardBodyComponent, NgFor, NgIf,
+  RouterLink, CardComponent, CardBodyComponent,
     FormCheckComponent, ReactiveFormsModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'

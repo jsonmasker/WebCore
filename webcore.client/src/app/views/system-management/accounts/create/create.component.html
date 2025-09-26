@@ -11,18 +11,26 @@
             <div class="mb-3 row">
                 <div class="col-12 col-sm-4">
                     <label cLabel for="roleId" i18n="@@selectRoleHaveSpanChild">Select Role: <span class="text-danger">(*)</span></label>
-                    <select cFormControl formControlName="roleId" cSelect>
-                        <option value="-1" i18n="@@selectRole">Select Role</option>
-                        <option *ngFor="let item of roles" [value]="item.id">{{ item.name }}</option>
-                    </select>
-                    <div *ngIf="roleId?.invalid && (roleId?.dirty || roleId?.touched)" class="text-danger">
-                        <div *ngIf="roleId?.hasError('min')" i18n="@@roleRequiredWarning">
-                            Select a role, please!
-                        </div>
-                    </div>
-                    <div *ngIf="errorModel.roleId && errorModel.roleId.length" class="text-danger">
-                        <div *ngFor="let error of errorModel.roleId">{{ error }}</div>
-                    </div>
+                                        <select cFormControl formControlName="roleId" cSelect>
+                                                <option value="-1" i18n="@@selectRole">Select Role</option>
+                                                @for (item of roles; track $index) {
+                                                    <option [value]="item.id">{{ item.name }}</option>
+                                                }
+                                        </select>
+                                        @if (roleId?.invalid && (roleId?.dirty || roleId?.touched)) {
+                                            <div class="text-danger">
+                                                @if (roleId?.hasError('min')) {
+                                                    <div i18n="@@roleRequiredWarning">Select a role, please!</div>
+                                                }
+                                            </div>
+                                        }
+                                        @if (errorModel.roleId && errorModel.roleId.length) {
+                                            <div class="text-danger">
+                                                @for (error of errorModel.roleId; track $index) {
+                                                    <div>{{ error }}</div>
+                                                }
+                                            </div>
+                                        }
                 </div>
                 <div class="col-12 col-sm-4">
                     <label cLabel for="mallId" i18n="@@selectMallLabel">Select mall:</label>
@@ -61,61 +69,77 @@
                 <div class="col-12 col-sm-6">
                     <label cLabel for="email" i18n="@@emailHaveSpanChild">Email:<span class="text-danger">(*)</span></label>
                     <input cFormControl formControlName="email" type="text" />
-                    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
-                        <div *ngIf="email?.hasError('required')" i18n="@@emailRequiredWarning">
-                            Enter your email, please!
-                        </div>
-                        <div *ngIf="email?.hasError('email')" i18n="@@emailInvalidWarning">
-                            Email is invalid!
-                        </div>
-                    </div>
-                    <div *ngIf="errorModel.email && errorModel.email.length" class="text-danger">
-                        <div *ngFor="let error of errorModel.email">{{ error }}</div>
-                      </div>
+                                        @if (email?.invalid && (email?.dirty || email?.touched)) {
+                                            <div class="text-danger">
+                                                @if (email?.hasError('required')) {
+                                                    <div i18n="@@emailRequiredWarning">Enter your email, please!</div>
+                                                }
+                                                @if (email?.hasError('email')) {
+                                                    <div i18n="@@emailInvalidWarning">Email is invalid!</div>
+                                                }
+                                            </div>
+                                        }
+                                        @if (errorModel.email && errorModel.email.length) {
+                                            <div class="text-danger">
+                                                @for (error of errorModel.email; track $index) { <div>{{ error }}</div> }
+                                            </div>
+                                        }
                 </div>
                 <div class="col-12 col-sm-6">
                     <label cLabel for="phoneNumber" i18n="@@phoneNumberLabel">PhoneNumber:</label>
                     <input cFormControl formControlName="phoneNumber" type="text" maxlength="10" />
-                    <div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)" class="text-danger">
-                        <div *ngIf="phoneNumber?.hasError('phoneNumber')" class="text-danger" i18n="@@phoneNumberInvalidWarning">
-                            Phone number must be vietnamese phone number!
-                        </div>
-                    </div>
-                    <div *ngIf="errorModel.phoneNumber && errorModel.phoneNumber.length" class="text-danger">
-                        <div *ngFor="let error of errorModel.phoneNumber">{{ error }}</div>
-                    </div>
+                                        @if (phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)) {
+                                            <div class="text-danger">
+                                                @if (phoneNumber?.hasError('phoneNumber')) {
+                                                    <div class="text-danger" i18n="@@phoneNumberInvalidWarning">Phone number must be vietnamese phone number!</div>
+                                                }
+                                            </div>
+                                        }
+                                        @if (errorModel.phoneNumber && errorModel.phoneNumber.length) {
+                                            <div class="text-danger">
+                                                @for (error of errorModel.phoneNumber; track $index) { <div>{{ error }}</div> }
+                                            </div>
+                                        }
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-12 col-sm-6">
                     <label cLabel for="userName" i18n="@@userNameHaveSpanChild">UserName:<span class="text-danger">(*)</span></label>
                     <input cFormControl formControlName="userName" type="text" />
-                    <div *ngIf="userName?.invalid && (userName?.dirty || userName?.touched)" class="text-danger">
-                        <div *ngIf="userName?.hasError('required')" i18n="@@userNameRequiredWarning">
-                            Enter your username, please!
-                        </div>
-                        <div *ngIf="userName?.hasError('userName')" i18n="@@userNameInvalidWarning">
-                            Username length must be between 6 and 50 characters, must not contain spaces, must be null!
-                        </div>
-                    </div>
-                    <div *ngIf="errorModel.userName && errorModel.userName.length" class="text-danger">
-                        <div *ngFor="let error of errorModel.userName">{{ error }}</div>
-                      </div>
+                                        @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
+                                            <div class="text-danger">
+                                                @if (userName?.hasError('required')) {
+                                                    <div i18n="@@userNameRequiredWarning">Enter your username, please!</div>
+                                                }
+                                                @if (userName?.hasError('userName')) {
+                                                    <div i18n="@@userNameInvalidWarning">Username length must be between 6 and 50 characters, must not contain spaces, must be null!</div>
+                                                }
+                                            </div>
+                                        }
+                                        @if (errorModel.userName && errorModel.userName.length) {
+                                            <div class="text-danger">
+                                                @for (error of errorModel.userName; track $index) { <div>{{ error }}</div> }
+                                            </div>
+                                        }
                 </div>
                 <div class="col-12 col-sm-6">
                     <label cLabel for="password" i18n="@@passwordHaveSpanChild">Password:<span class="text-danger">(*)</span></label>
                     <input cFormControl minlength="6" maxlength="20" formControlName="password" type="password" />
-                    <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
-                        <div *ngIf="password?.hasError('required')" i18n="@@passwordRequiredWarning">
-                            Enter your password, please!
-                        </div>
-                        <div *ngIf="password?.hasError('minlength') || password?.hasError('maxlength')" i18n="@@passwordInvalidMinMaxLengthWarning">
-                            Password length must be between 6 and 20 characters!
-                        </div>
-                    </div>
-                    <div *ngIf="errorModel.password && errorModel.password.length" class="text-danger">
-                        <div *ngFor="let error of errorModel.password">{{ error }}</div>
-                      </div>
+                                        @if (password?.invalid && (password?.dirty || password?.touched)) {
+                                            <div class="text-danger">
+                                                @if (password?.hasError('required')) {
+                                                    <div i18n="@@passwordRequiredWarning">Enter your password, please!</div>
+                                                }
+                                                @if (password?.hasError('minlength') || password?.hasError('maxlength')) {
+                                                    <div i18n="@@passwordInvalidMinMaxLengthWarning">Password length must be between 6 and 20 characters!</div>
+                                                }
+                                            </div>
+                                        }
+                                        @if (errorModel.password && errorModel.password.length) {
+                                            <div class="text-danger">
+                                                @for (error of errorModel.password; track $index) { <div>{{ error }}</div> }
+                                            </div>
+                                        }
                 </div>
             </div>
 

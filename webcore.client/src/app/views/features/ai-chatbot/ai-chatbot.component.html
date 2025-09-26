@@ -1,11 +1,18 @@
 <div class="chat-container">
   <div class="messages">
-    <div *ngFor="let message of messages" [ngClass]="{'user-message': message.sender === 'User', 'bot-message': message.sender === 'Bot'}">
-      <strong class="me-2">{{ message.sender }}:</strong> 
-      <span [innerHTML]="message.text" *ngIf="message.sender === 'User'"></span>
-      <span [innerHTML]="data" *ngIf="message.sender != 'User'"></span>
-    </div>
-    <div *ngIf="loading" class="loading">Bot is typing...</div>
+    @for (message of messages; track $index) {
+      <div [ngClass]="{'user-message': message.sender === 'User', 'bot-message': message.sender === 'Bot'}">
+        <strong class="me-2">{{ message.sender }}:</strong> 
+        @if (message.sender === 'User') {
+          <span [innerHTML]="message.text"></span>
+        } @else {
+          <span [innerHTML]="data"></span>
+        }
+      </div>
+    }
+    @if (loading) {
+      <div class="loading">Bot is typing...</div>
+    }
   </div>
   <div class="input-container">
     <input [(ngModel)]="userInput" placeholder="Type your message..." />

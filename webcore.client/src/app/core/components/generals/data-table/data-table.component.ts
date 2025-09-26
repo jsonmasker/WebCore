@@ -1,12 +1,11 @@
-import { Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, TableDirective } from '@coreui/angular';
 import { CustomPaginationComponent } from "../custom-pagination/custom-pagination.component";
-import { NgFor, NgIf } from '@angular/common';
-import { PageInformation, Pagination } from '@models/pagination.model';
+import { PageInformation } from '@models/pagination.model';
 
 @Component({
   selector: 'app-data-table',
-  imports: [CardComponent,TableDirective, CardBodyComponent, CardHeaderComponent, CustomPaginationComponent, NgIf, NgFor],
+  imports: [CardComponent,TableDirective, CardBodyComponent, CardHeaderComponent, CustomPaginationComponent],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss'
 })

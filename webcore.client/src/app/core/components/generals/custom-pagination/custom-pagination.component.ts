@@ -1,11 +1,11 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-custom-pagination',
+  standalone: true,
+  imports: [],
   templateUrl: './custom-pagination.component.html',
-  styleUrl: './custom-pagination.component.scss',
-  imports: [NgFor, NgIf]
+  styleUrl: './custom-pagination.component.scss'
 })
 export class CustomPaginationComponent {
   @Input() totalPages = 0;

@@ -2,7 +2,9 @@
 	<div class="editor-container editor-container_classic-editor" #editorContainerElement>
 		<div class="editor-container__editor">
 			<div #editorElement>
-				<ckeditor [data]="initialData" [editor]="Editor" [config]="config" *ngIf="Editor && config" (change)="onChange($event)"/>
+				@if (Editor && config) {
+					<ckeditor [data]="initialData" [editor]="Editor" [config]="config" (change)="onChange($event)"/>
+				}
 			</div>
 		</div>
 	</div>
