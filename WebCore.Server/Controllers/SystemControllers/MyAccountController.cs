@@ -38,27 +38,27 @@ namespace LulusiaAdmin.Server.Controllers.SystemControllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            string controllerName = ControllerContext.ActionDescriptor.ControllerName;
-            UserActionModel userAction = new UserActionModel()
-            {
-                UserName = model.UserName,
-                ControllerName = controllerName,
-                ActionName = EUserAction.LogIn.ToString(),
-                Status = EUserActionStatus.Failed.ToString(),
-            };
             if (!ModelState.IsValid)
             {
-                //await _actionLog.CreateAsync(userAction);
                 return Failed(EStatusCodes.BadRequest, _sharedLocalizer["invalidData"]);
             }
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, lockoutOnFailure: true);
+            var user = await _myAccountHelper.FindByNameAsync(model.UserName);
+
+            if (user == null)
+            {
+                return Failed(EStatusCodes.BadRequest, _localizer["usernameOrPasswordIncorrect"]);
+            }
+            else if (!user.IsActive)
+            {
+                return Failed(EStatusCodes.BadRequest, _localizer["deactiveUser"]);
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
             if (result.Succeeded)
             {
-                await _signInManager.SignOutAsync();
-                JwtViewModel jwt = await _myAccountHelper.LoginAsync(model);
-                userAction.Status = EUserActionStatus.Successful.ToString();
-                //await _actionLog.CreateAsync(userAction);
-                return Succeeded<JwtViewModel>(jwt, _localizer["loginSuccess"]);
+                JwtViewModel jwt = await _myAccountHelper.Authenticate(user, model.RememberMe);
+
+                return Succeeded(jwt, _localizer["loginSuccess"]);
             }
             else if (result.IsLockedOut)
             {
